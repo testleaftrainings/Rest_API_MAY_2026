@@ -1,0 +1,362 @@
+{
+  "info": {
+    "_postman_id": "0313d298-9c62-4732-8c31-ae2a18d0a441",
+    "name": "week2.day1_request_chaning",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52582345",
+    "_collection_link": "https://go.postman.co/collection/52582345-0313d298-9c62-4732-8c31-ae2a18d0a441?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "create_new_record_in_incident_table_with_request_body",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "\tpm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status code name has Created\", function () {\r",
+              "\tpm.response.to.have.status(\"Created\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate the value of short_description key\", function () {\r",
+              "\tvar jsonData = pm.response.json();\r",
+              "\tpm.expect(jsonData.result.short_description).to.eql(\"API MAY26 Session\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate response format is json\", function () {\r",
+              "\tvar actual = pm.response.headers.get(\"Content-Type\");\r",
+              "\tpm.expect(actual).to.contains('json');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate sys_id key should exists under result object\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.result).to.exist;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate sys_id value should not be NULL\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.result.sys_id).to.not.be.null;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate sys_id value should not empty\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.result.sys_id).to.not.eql(\"\");\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "pm.collectionVariables.set(\"sysId\", jsonData.result.sys_id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"short_description\": \"API MAY26 Session\"  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{protocal}}://{{baseUri}}/{{basePath}}/:tableName",
+          "protocol": "{{protocal}}",
+          "host": [
+            "{{baseUri}}"
+          ],
+          "path": [
+            "{{basePath}}",
+            ":tableName"
+          ],
+          "variable": [
+            {
+              "key": "tableName",
+              "value": "{{table_name}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "retrieve_a_record_from_incident_table_by_sys_id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "\tpm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status code name has OK\", function () {\r",
+              "\tpm.response.to.have.status(\"OK\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate response format is json\", function () {\r",
+              "\tvar actual = pm.response.headers.get(\"Content-Type\");\r",
+              "\tpm.expect(actual).to.contains('json');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate the value of short_description key\", function () {\r",
+              "\tvar jsonData = pm.response.json();\r",
+              "\tpm.expect(jsonData.result.short_description).to.eql(\"API MAY26 Session\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate the value of sys_id key\", function () {\r",
+              "\tvar jsonData = pm.response.json();\r",
+              "\tpm.expect(jsonData.result.sys_id).to.eql(pm.collectionVariables.get(\"sysId\"));\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{protocal}}://{{baseUri}}/{{basePath}}/:tableName/:sys_id",
+          "protocol": "{{protocal}}",
+          "host": [
+            "{{baseUri}}"
+          ],
+          "path": [
+            "{{basePath}}",
+            ":tableName",
+            ":sys_id"
+          ],
+          "variable": [
+            {
+              "key": "tableName",
+              "value": "{{table_name}}"
+            },
+            {
+              "key": "sys_id",
+              "value": "{{sysId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update_existing_record_in_the_incident_table",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "\tpm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status code name has OK\", function () {\r",
+              "\tpm.response.to.have.status(\"OK\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate response format is json\", function () {\r",
+              "\tvar actual = pm.response.headers.get(\"Content-Type\");\r",
+              "\tpm.expect(actual).to.contains('json');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate the value of short_description key\", function () {\r",
+              "\tvar jsonData = pm.response.json();\r",
+              "\tpm.expect(jsonData.result.short_description).to.eql(\"Update short_description record using PATCH method\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate the value of sys_id key\", function () {\r",
+              "\tvar jsonData = pm.response.json();\r",
+              "\tpm.expect(jsonData.result.sys_id).to.eql(pm.collectionVariables.get(\"sysId\"));\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"short_description\": \"Update short_description record using PATCH method\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{protocal}}://{{baseUri}}/{{basePath}}/:tableName/:sys_id",
+          "protocol": "{{protocal}}",
+          "host": [
+            "{{baseUri}}"
+          ],
+          "path": [
+            "{{basePath}}",
+            ":tableName",
+            ":sys_id"
+          ],
+          "variable": [
+            {
+              "key": "tableName",
+              "value": "{{table_name}}"
+            },
+            {
+              "key": "sys_id",
+              "value": "{{sysId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete_existing_incident_table_record",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {\r",
+              "\tpm.response.to.have.status(204);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status code name has No Content\", function () {\r",
+              "\tpm.response.to.have.status(\"No Content\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{protocal}}://{{baseUri}}/{{basePath}}/:tableName/:sys_id",
+          "protocol": "{{protocal}}",
+          "host": [
+            "{{baseUri}}"
+          ],
+          "path": [
+            "{{basePath}}",
+            ":tableName",
+            ":sys_id"
+          ],
+          "variable": [
+            {
+              "key": "tableName",
+              "value": "{{table_name}}"
+            },
+            {
+              "key": "sys_id",
+              "value": "{{sysId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "basePath",
+      "value": "api/now/table"
+    },
+    {
+      "key": "table_name",
+      "value": "incident"
+    },
+    {
+      "key": "sysId",
+      "value": ""
+    }
+  ]
+}
