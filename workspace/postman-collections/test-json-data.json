@@ -1,0 +1,22 @@
+[
+	{
+		"ShortDescription":"API MAY26 Session 1",
+		"Description":"Create new data record for inquiry category",
+		"Category":"inquiry"
+	},
+	{
+		"ShortDescription":"API MAY26 Session 2",
+		"Description":"Create new data record for hardware category",
+		"Category":"hardware"
+	},
+	{
+		"ShortDescription":"API MAY26 Session 3",
+		"Description":"Create new data record for software category",
+		"Category":"software"
+	},
+	{
+		"ShortDescription":"API MAY26 Session 4",
+		"Description":"Create new data record for database category",
+		"Category":"database"
+	}
+]
