@@ -4,7 +4,7 @@
 	<artifactId>rest_api_may_2026_session_code</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
-		<allure.version>2.24.0</allure.version>
+		<allure.version>2.31.0</allure.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -49,11 +49,17 @@
 		</dependency>
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
-			<artifactId>allure-testng</artifactId>			
+			<artifactId>allure-testng</artifactId>	
+			<scope>test</scope>		
 		</dependency>
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-rest-assured</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-cucumber7-jvm</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
