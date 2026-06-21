@@ -35,9 +35,9 @@ Then validate the response with following expected value
 
 Scenario: User should able to create new record inside the incident table passing request payload as file format
 Given add header key "Content-Type" and value "application/json"
-When hit post method of the "/{tableName}" endpoint and request payload as file format the location is "src/main/resources/request_payload/create-incident.json" 
-#When add the request payload in the the file format and location is "src/main/resources/request_payload/create-incident.json"
-#And hit post method of the "/{tableName}" endpoint
+#When hit post method of the "/{tableName}" endpoint and request payload as file format the location is "src/main/resources/request_payload/create-incident.json" 
+When add the request payload in the the file format and location is "src/main/resources/request_payload/create-incident.json"
+And hit post method of the "/{tableName}" endpoint
 Then validate the response with following expected value
 | statusCode | statusLine | responseFormat |
 | 201        | Created    | JSON           |

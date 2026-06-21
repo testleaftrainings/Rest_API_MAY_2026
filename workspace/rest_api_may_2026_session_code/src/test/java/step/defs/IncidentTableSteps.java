@@ -85,8 +85,10 @@ public class IncidentTableSteps {
 	}
 	
 	@When("add the request payload in the the file format and location is {string}")
-	public void add_the_request_payload_in_the_the_file_format_and_location_is(String requestPayload) {
-		
+	public void add_the_request_payload_in_the_the_file_format_and_location_is(String requestPayloadFilePath) throws IOException {
+		File file = new File(requestPayloadFilePath);
+		byte[] bytes = Files.readAllBytes(file.toPath());
+		preConditions.setBody(bytes);
 	}
 	
 	@When("hit post method of the {string} endpoint and request payload as file format the location is {string}")

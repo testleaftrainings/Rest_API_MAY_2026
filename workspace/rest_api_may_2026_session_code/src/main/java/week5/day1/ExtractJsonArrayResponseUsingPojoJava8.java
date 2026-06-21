@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.mapper.ObjectMapperType;
 
 public class ExtractJsonArrayResponseUsingPojoJava8 {
 	
@@ -27,19 +26,23 @@ public class ExtractJsonArrayResponseUsingPojoJava8 {
         .statusCode(200)
         .contentType(ContentType.JSON)
         .extract()        
-        .as(RetrieveAllRecordsResponsePojo.class, ObjectMapperType.GSON);
+        .as(RetrieveAllRecordsResponsePojo.class);
 		
 		List<Result> records = allRecordsResponse.getResult();
 		
 		for (Result result : records) {
-			System.out.println(result.getCategory());
+			if(!result.getCategory().isEmpty()) {
+				System.out.println(result.getCategory());
+			}
 		}
 		
 		System.out.println("");
 		
 		records.stream().map(record -> record.getCategory())
-		.filter(category -> category.equalsIgnoreCase("HARDWARE"))
-		.collect(Collectors.toList()).forEach(System.out::println);
+		                .filter(category -> !category.isEmpty())
+		                .filter(category -> category.equalsIgnoreCase("Hardware"))
+		                .collect(Collectors.toList())
+		                .forEach(System.out::println);
 		
 	}
 

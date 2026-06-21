@@ -11,18 +11,23 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 
 import com.testleaf.makaia.general.utils.AllureHandler;
+import com.testleaf.makaia.general.utils.PropertiesHandler;
 import com.testleaf.makaia.selenium.base.SeleniumBase;
+import com.testleaf.makaia.uibank.api.som.TokenService;
 
 import io.qameta.allure.Allure;
 
-public class ServicenowTestNGHooks extends SeleniumBase  {
+public class UiBankTestNGHooks extends SeleniumBase {
 	
-	protected static String incidentNumber;
-	
+	protected static String accountId;
+
 	@BeforeMethod
 	public void beforeMethod(Method method) {
 		if (method.getName().contains("UI")) {
 			browserLaunch("chrome");
+			loadUrl(PropertiesHandler.config("uibank.frontend.url"));
+		} else if (method.getName().contains("API")) {
+			new TokenService().createToken().validateTokenCreatedSuccessfully().extractToken();
 		}
 	}
 
