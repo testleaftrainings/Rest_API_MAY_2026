@@ -4,7 +4,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-		          features = {"src/test/java/features/incident-table-refactored.feature"},
+		          features = {"src/test/java/features/incident-table-refactored.feature:36"},
 		          glue = {"step.defs"},
 		          plugin = {
 		        		  "pretty",
