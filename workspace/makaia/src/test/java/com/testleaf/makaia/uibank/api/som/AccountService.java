@@ -21,6 +21,10 @@ public class AccountService extends UiBankAPI {
 		return this;
 	}
 	
+	public AccountService createNewAccount() {
+		return this;
+	}
+	
 	public AccountService validateAccountDetailsFetchedSuccessfully() {
 		response.then().assertThat().statusCode(200).contentType(ContentType.JSON);
 		return this;
